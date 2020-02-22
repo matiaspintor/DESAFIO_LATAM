@@ -100,6 +100,7 @@ public class UsuarioService implements IUsuarioService {
 			usuario.setDiasFaltantesCumple(diasFaltantes);
 			usuarioDTO.setDiasFaltantes(usuario.getDiasFaltantesCumple());
 		}else {
+			this.consultaPoema();
 			int randomNum = (int) (Math.random() * (3 - 0 + 1) + 0);
 			PoemaDTO poema = this.arrayPoemas[randomNum];
 			usuarioRegistrado.setFelicitaciones("Felicitaciones! " + poema.getContent() + " \n " + "Autor: '" + poema.getPoet().getName() + "'");

@@ -59,7 +59,6 @@ public class UsuarioController {
 	@PostMapping(path = "/ingresar")
 	public ResponseEntity<Object> ingresarUsuario(@RequestBody Usuario usuario){
 		try {
-			this.usuarioService.consultaPoema();
 			UsuarioDTO usuarioRegistrado = this.usuarioService.save(usuario);
 			return ResponseEntity.status(HttpStatus.OK).body(usuarioRegistrado);
 		}catch(Exception ex) {
