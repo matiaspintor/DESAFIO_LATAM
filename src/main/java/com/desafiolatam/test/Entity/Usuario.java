@@ -40,7 +40,6 @@ public class Usuario {
 	private Date fechaNacimiento;
 	
 	@Transient
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	private int edad;
 
 	

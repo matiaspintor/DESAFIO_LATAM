@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.desafiolatam.test.DTO.UsuarioDTO;
 import com.desafiolatam.test.Entity.Usuario;
 import com.desafiolatam.test.Service.IUsuarioService;
 
@@ -58,7 +60,7 @@ public class UsuarioController {
 	public ResponseEntity<Object> ingresarUsuario(@RequestBody Usuario usuario){
 		try {
 			this.usuarioService.consultaPoema();
-			Usuario usuarioRegistrado = this.usuarioService.save(usuario);
+			UsuarioDTO usuarioRegistrado = this.usuarioService.save(usuario);
 			return ResponseEntity.status(HttpStatus.OK).body(usuarioRegistrado);
 		}catch(Exception ex) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Se ha generado un error al momento de consultar los usuarios");

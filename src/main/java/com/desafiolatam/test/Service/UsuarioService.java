@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.desafiolatam.test.DTO.PoemaDTO;
+import com.desafiolatam.test.DTO.UsuarioDTO;
 import com.desafiolatam.test.Entity.Usuario;
 import com.desafiolatam.test.Repository.IUsuarioRepository;
 
@@ -38,7 +39,7 @@ public class UsuarioService implements IUsuarioService {
 			else {
 				int randomNum = (int) (Math.random() * (3 - 0 + 1) + 0);
 				PoemaDTO poema = this.arrayPoemas[randomNum];
-				usuario.setFelicitaciones("Felicitaciones! " + poema.getContent() + " \n " + "'" + poema.getPoet().getName() + "'");
+				usuario.setFelicitaciones("Felicitaciones! " + poema.getContent() + " \n " + "Autor: '" + poema.getPoet().getName() + "'");
 			}
 		}
 		return listaUsuarios;
@@ -88,18 +89,23 @@ public class UsuarioService implements IUsuarioService {
 	 * ademas calcula la cantidad de dias restantes para el cumpleaños y en caso de ser hoy
 	 * el cumpleaños, se settea un poema.*/
 	@Override
-	public Usuario save(Usuario usuario) {
+	public UsuarioDTO save(Usuario usuario) {
 		Usuario usuarioRegistrado = this.usuarioRepository.save(usuario);
-		usuarioRegistrado.setEdad(this.calculaEdad(usuarioRegistrado.getFechaNacimiento()));
 		int diasFaltantes = this.calculaDiasFaltantes(usuario.getFechaNacimiento());
+		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		usuarioDTO.setPrimerNombre(usuarioRegistrado.getPrimerNombre());
+		usuarioDTO.setAppPaterno(usuarioRegistrado.getAppPaterno());
+		usuarioDTO.setEdad(this.calculaEdad(usuarioRegistrado.getFechaNacimiento()));	
 		if(diasFaltantes>0) {
 			usuario.setDiasFaltantesCumple(diasFaltantes);
+			usuarioDTO.setDiasFaltantes(usuario.getDiasFaltantesCumple());
 		}else {
 			int randomNum = (int) (Math.random() * (3 - 0 + 1) + 0);
 			PoemaDTO poema = this.arrayPoemas[randomNum];
-			usuarioRegistrado.setFelicitaciones("Felicitaciones! " + poema.getContent() + " \n " + "'" + poema.getPoet().getName() + "'");
+			usuarioRegistrado.setFelicitaciones("Felicitaciones! " + poema.getContent() + " \n " + "Autor: '" + poema.getPoet().getName() + "'");
+			usuarioDTO.setFelicitaciones(usuario.getFelicitaciones());
 		}
-		return usuarioRegistrado;
+		return usuarioDTO;
 	}
 	
 }
