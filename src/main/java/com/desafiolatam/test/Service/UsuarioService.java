@@ -77,11 +77,29 @@ public class UsuarioService implements IUsuarioService {
 	private PoemaDTO [] arrayPoemas;
 	@Value("${endpoint.poemas}")
 	private String endpointPoemas;
-	
+	/*Metodo que se conecta al endpoint de poemas y settea una lista,
+	 * la ruta del endpoint se encuentra en el archivo properties de la app*/
 	public void consultaPoema() {
 	    RestTemplate plantilla = new RestTemplate();
 	    PoemaDTO [] resultado = plantilla.getForEntity(this.endpointPoemas, PoemaDTO[].class).getBody();
 	    this.arrayPoemas = resultado;
+	}
+	/*Metodo que se encarga de realizar la insercion del usuario a la base de datos,
+	 * ademas calcula la cantidad de dias restantes para el cumpleaños y en caso de ser hoy
+	 * el cumpleaños, se settea un poema.*/
+	@Override
+	public Usuario save(Usuario usuario) {
+		Usuario usuarioRegistrado = this.usuarioRepository.save(usuario);
+		usuarioRegistrado.setEdad(this.calculaEdad(usuarioRegistrado.getFechaNacimiento()));
+		int diasFaltantes = this.calculaDiasFaltantes(usuario.getFechaNacimiento());
+		if(diasFaltantes>0) {
+			usuario.setDiasFaltantesCumple(diasFaltantes);
+		}else {
+			int randomNum = (int) (Math.random() * (3 - 0 + 1) + 0);
+			PoemaDTO poema = this.arrayPoemas[randomNum];
+			usuarioRegistrado.setFelicitaciones("Felicitaciones! " + poema.getContent() + " \n " + "'" + poema.getPoet().getName() + "'");
+		}
+		return usuarioRegistrado;
 	}
 	
 }

@@ -17,4 +17,6 @@ public interface IUsuarioRepository extends PagingAndSortingRepository<Usuario, 
 			"FROM usuarios ", nativeQuery = true)
 	@Transactional(readOnly = true)
 	public Page<Usuario> listarUsuarios(Pageable numeroPagina);
+	
+	public Usuario save(Usuario usuario);
 }

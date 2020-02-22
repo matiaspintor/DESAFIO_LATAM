@@ -6,4 +6,5 @@ import com.desafiolatam.test.Entity.Usuario;
 public interface IUsuarioService {
 	public Page<Usuario> listarUsuarios(Pageable numeroPagina);
 	public void consultaPoema();
+	public Usuario save(Usuario usuario);
 }
