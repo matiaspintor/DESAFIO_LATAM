@@ -8,7 +8,7 @@ Proyecto de desarrollo test para latam
 - Endpoint lista de usuarios: (GET) http://localhost:8080/usuarios/listar?numeroPagina=0
 - Endpoint ingreso de usuarios: (POST) http://localhost:8080/usuarios/ingresar
 
-*Nota 1: Si bien el el endpoint para listar los usuarios no se solicito paginacion, inclui un numero de pagina, para listar de forma mas ordenada los resultados, y para que desde el frontend se pueda formular la tabla sin recargar la pagina cuando supere los 2.000 registros.
+* Nota 1: Si bien el el endpoint para listar los usuarios no se solicito paginacion, decidi incluir un numero de pagina como parametro, para listar de forma mas ordenada los resultados, y para que desde el frontend se pueda formular la tabla sin sobre cargar el navegador cuando supere los 2.000 registros.
 
 * Nota 2: El endpoint para ingreso de usuarios acepta un objeto JSON como parametro, por ejemplo:
 
