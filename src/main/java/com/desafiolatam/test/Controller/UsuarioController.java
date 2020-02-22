@@ -29,6 +29,7 @@ public class UsuarioController {
 	public ResponseEntity<Object> listarUsuarios(@RequestParam int numeroPagina){
 		Pageable pagina = PageRequest.of(numeroPagina, 10,
 				JpaSort.unsafe(Sort.Direction.DESC, "(id_usuario)"));
+		this.usuarioService.consultaPoema();
 		Page<Usuario> listaUsuarios = this.usuarioService.listarUsuarios(pagina);
 		return ResponseEntity.status(HttpStatus.OK).body(listaUsuarios);
 		/*try {

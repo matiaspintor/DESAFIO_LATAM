@@ -6,15 +6,12 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import com.desafiolatam.test.DTO.PoemaDTO;
 import com.desafiolatam.test.Entity.Usuario;
 import com.desafiolatam.test.Repository.IUsuarioRepository;
@@ -39,10 +36,11 @@ public class UsuarioService implements IUsuarioService {
 				usuario.setDiasFaltantesCumple(diasFaltantes);
 			}
 			else {
-				usuario.setFelicitaciones("Felicitaciones!");
+				int randomNum = (int) (Math.random() * (3 - 0 + 1) + 0);
+				PoemaDTO poema = this.arrayPoemas[randomNum];
+				usuario.setFelicitaciones("Felicitaciones! " + poema.getContent() + " \n " + "'" + poema.getPoet().getName() + "'");
 			}
 		}
-		this.consultaPoema();
 		return listaUsuarios;
 	}
 	/*Metodo que calcula la edad del usuario a partir de su fecha de nacimiento*/
@@ -76,11 +74,14 @@ public class UsuarioService implements IUsuarioService {
         return diasFaltantes;
 	}
 	
-	private void consultaPoema() {
+	private PoemaDTO [] arrayPoemas;
+	@Value("${endpoint.poemas}")
+	private String endpointPoemas;
+	
+	public void consultaPoema() {
 	    RestTemplate plantilla = new RestTemplate();
-	    PoemaDTO [] resultado = plantilla.getForEntity("https://www.poemist.com/api/v1/randompoems", PoemaDTO[].class).getBody();
-	    int randomNum = (int) (Math.random() * (3 - 0 + 1) + 0);
-	    System.out.println(resultado);
+	    PoemaDTO [] resultado = plantilla.getForEntity(this.endpointPoemas, PoemaDTO[].class).getBody();
+	    this.arrayPoemas = resultado;
 	}
 	
 }
