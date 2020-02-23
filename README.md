@@ -15,7 +15,7 @@ Para ejecutar la aplicacion con docker es necesario tener instalado docker
 - Abrir la linea de comandos y situarse a la carpeta del proyecto donde se encuentra el Dockerfile y el docker-compose.yml
 - Para crear la imagen de openjdk y del proyecto, ejecutar
 ```
-docker-compose build
+docker-compose up
 ```
 - Ejecutar el comando para crear el contenedor y agregar el volumen apuntando a la ruta donde se encuentra el proyecto (remplazar RUTA_PROYECTO, mantener comillas dobles)
 ```
