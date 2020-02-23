@@ -17,7 +17,7 @@ Para ejecutar la aplicacion con docker es necesario tener instalado docker
 ```
 docker-compose up
 ```
-- Ejecutar el comando para crear el contenedor y agregar el volumen apuntando a la ruta donde se encuentra el proyecto (remplazar RUTA_PROYECTO, mantener comillas dobles)
+- Ejecutar el comando para crear el contenedor y agregar el volumen apuntando a la ruta donde se encuentra el proyecto (remplazar RUTA_PROYECTO por la ruta de la carpeta donde se encuentra el Dockerfile, mantener comillas dobles)
 ```
 docker run -ti --rm -v "RUTA_PROYECTO":/usr/src/app -p 8080:8080 desafio_latam_apirest bash
 ```
