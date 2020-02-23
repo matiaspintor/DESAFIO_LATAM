@@ -19,7 +19,7 @@ docker-compose build
 ```
 - Ejecutar el comando para crear el contenedor y agregar el volumen apuntando a la ruta donde se encuentra el proyecto (remplazar RUTA_PROYECTO, mantener comillas dobles)
 ```
-docker run -ti --rm -v "RUTA_PROYECTO":/usr/src/app -p 8080:8080 desafiolatam_apirest bash
+docker run -ti --rm -v "RUTA_PROYECTO":/usr/src/app -p 8080:8080 desafio_latam_apirest bash
 ```
 - Ahora con el contenedor inicializado ejecutar el .jar generado con maven build que se encuentra dentro del contenedor para inciar la aplicacion Spring Boot que estara escuchando en el puerto 8080
 ```
